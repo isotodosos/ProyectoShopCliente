@@ -354,6 +354,7 @@ aside  {
 .alerta-ok {
   background-color: rgb(109, 211, 109);
   color: rgb(2, 103, 2);
+  color: var(--blanco);
 }
 .alerta-error {
   background-color: rgb(190, 158, 13);  /*rgb(230, 78, 78)*/
