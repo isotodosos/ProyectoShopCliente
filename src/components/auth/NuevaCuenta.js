@@ -1,12 +1,27 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {Link} from 'react-router-dom';
 
 import AlertaContext from '../../context/alerta/alertaContext';
+import AuthContext from '../../context/auth/authContext';
 
-const NuevaCuenta = () => {
+const NuevaCuenta = (props) => {
 
     const alertaContext = useContext(AlertaContext);
     const { alerta, mostrarAlerta } = alertaContext;
+
+    const authContext = useContext(AuthContext);
+    const {mensaje, autenticado, registrarUsuario } = authContext;
+
+    useEffect(() => {
+        if(autenticado){
+            props.history.push('/');
+        }
+
+        if(mensaje){
+            mostrarAlerta(mensaje.msg, mensaje.categoria);
+        }
+
+    }, [autenticado, mensaje, props.history])
 
     const[nuevologer, handleNuevoLoger] = useState({
         alias : '',
@@ -25,6 +40,8 @@ const NuevaCuenta = () => {
        })
       
     }
+
+    
 
     const onSubmit = e => {
         e.preventDefault();
@@ -45,6 +62,16 @@ const NuevaCuenta = () => {
         console.log('funcionando');
 
         //hacemos la query
+        registrarUsuario({
+            alias,
+            email,
+            direccion,
+            password
+        })
+
+        
+
+        
     }
 
     return(

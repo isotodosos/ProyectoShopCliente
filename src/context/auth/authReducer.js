@@ -9,13 +9,18 @@ export default (state, action) => {
 
     switch (action.type) {
 
+        
         case REGISTRO_EXITOSO:
             return({
-                //alerta : action.payload
+                ...state,
+                autenticado : true,
+                mensaje : action.payload
             })
         case REGISTRO_ERROR:
             return({
-                //alerta : null
+                ...state,
+                autenticado : null,
+                mensaje : action.payload
             })    
         
         default:
