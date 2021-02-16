@@ -1,12 +1,29 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {Link} from 'react-router-dom';
 
 import AlertaContext from '../../context/alerta/alertaContext';
+import AuthContext from '../../context/auth/authContext';
 
-const Login = () => {
+const Login = (props) => {
 
     const alertaContext = useContext(AlertaContext);
     const { alerta, mostrarAlerta } = alertaContext;
+
+    const authContext = useContext(AuthContext);
+    const {iniciarSesion, mensaje, autenticado} = authContext;
+    
+
+    useEffect(() => {
+        if(autenticado){
+            props.history.push('/portada');
+        }
+
+        if(mensaje){
+            mostrarAlerta(mensaje.msg, mensaje.categoria);
+        }
+
+    }, [autenticado, mensaje, props.history])
+
 
     const[loger, handleLoger] = useState({
         email : '',
@@ -32,6 +49,12 @@ const Login = () => {
         }
 
         //hacemos la query
+
+        iniciarSesion({
+            email,
+            password
+        })
+
     }
 
 

@@ -10,7 +10,12 @@ import Carrito from './components/layout/Carrito';
 import AlertaState from './context/alerta/alertaState';
 import AuthState from './context/auth/authState';
 
+import RutaPrivada from './components/ruta/RutaPrivada';// este higher order components le pasa las props al componente Proyectos si autenticado es true
+
 function App() {
+
+ 
+
   return (
     <AuthState>
       <AlertaState>
@@ -19,8 +24,8 @@ function App() {
             
             <Route exact path ='/' component = {Login}/>
             <Route exact path ='/nueva-cuenta' component = {NuevaCuenta}/>
-            <Route exact path ='/portada' component = {Portada}/>
-            <Route exact path ='/carrito' component = {Carrito}/>
+            <RutaPrivada exact path ='/portada' component = {Portada}/>
+            <RutaPrivada exact path ='/carrito' component = {Carrito}/>
             
           </Switch>
         </Router>
