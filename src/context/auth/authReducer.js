@@ -3,7 +3,8 @@ import {REGISTRO_EXITOSO,
     OBTENER_USUARIO,
     LOGIN_EXITOSO,
     LOGIN_ERROR,
-    CERRAR_SESION } from '../../types';
+    CERRAR_SESION,
+    LIMPIAR_MENSAJE } from '../../types';
 
 export default (state, action) => {
 
@@ -12,9 +13,7 @@ export default (state, action) => {
         
         case REGISTRO_EXITOSO:
             return({
-                ...state,
-                cargando : false,
-                autenticado : true,
+                ...state,             
                 mensaje : action.payload
                 
             })
@@ -37,8 +36,7 @@ export default (state, action) => {
         case LOGIN_ERROR:
             localStorage.removeItem('token')
             return({
-                ...state,
-                token : null,
+                ...state,                
                 usuario : null,
                 autenticado : null,
                 mensaje : action.payload,
@@ -50,7 +48,12 @@ export default (state, action) => {
                 autenticado : true,
                 usuario : action.payload,
                 cargando : false
-            })     
+            })  
+        case LIMPIAR_MENSAJE:
+            return({
+                ...state,
+                mensaje : null
+            })   
         
         default:
             return state;

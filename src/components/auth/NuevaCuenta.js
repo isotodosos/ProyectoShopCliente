@@ -12,13 +12,13 @@ const NuevaCuenta = (props) => {
     const authContext = useContext(AuthContext);
     const {mensaje, autenticado, registrarUsuario } = authContext;
 
-    useEffect(() => {
-        if(autenticado){
-            props.history.push('/');
-        }
+    useEffect(() => {        
 
         if(mensaje){
             mostrarAlerta(mensaje.msg, mensaje.categoria);
+            if(mensaje.categoria == "alerta-ok"){
+                props.history.push('/');
+            }
         }
 
     }, [autenticado, mensaje, props.history])

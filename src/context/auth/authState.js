@@ -11,14 +11,15 @@ import {REGISTRO_EXITOSO,
     OBTENER_USUARIO,
     LOGIN_EXITOSO,
     LOGIN_ERROR,
-    CERRAR_SESION } from '../../types';
+    CERRAR_SESION,
+    LIMPIAR_MENSAJE } from '../../types';
 
 
 const AuthState = (props) => {
 
     const inicialState = {
         
-        token : null,
+        
         autenticado : null,
         usuario : null,
         mensaje : null,
@@ -47,6 +48,8 @@ const AuthState = (props) => {
             payload : alerta 
            })
 
+           limpiarMensaje()
+
         } catch (error) {
             
             
@@ -59,6 +62,8 @@ const AuthState = (props) => {
                 type : REGISTRO_ERROR,
                 payload : alerta 
             })
+
+            limpiarMensaje()
             
         }
     }
@@ -90,6 +95,8 @@ const AuthState = (props) => {
                 type : LOGIN_ERROR,
                 payload : alerta 
             })
+
+            limpiarMensaje()
             
         }
 
@@ -125,6 +132,8 @@ const AuthState = (props) => {
                 type : LOGIN_ERROR,
                 payload : alerta 
             })
+
+            limpiarMensaje()
         }
     }
 
@@ -141,13 +150,24 @@ const AuthState = (props) => {
             type : CERRAR_SESION,
             payload : alerta 
         })
+
+        limpiarMensaje()
+    }
+
+
+    //limpiar mensaje
+    const limpiarMensaje = () => {
+        setTimeout(() => {
+            dispatch({
+                type : LIMPIAR_MENSAJE
+            })
+        }, 1000);
     }
 
     return(
 
         <authContext.Provider
-            value = {{
-                token : state.token,
+            value = {{                
                 autenticado : state.autenticado,
                 usuario : state.usuario,
                 mensaje : state.mensaje,
@@ -155,7 +175,8 @@ const AuthState = (props) => {
                 registrarUsuario,
                 iniciarSesion,
                 usuarioAutenticado,
-                cerrarSesion
+                cerrarSesion,
+                limpiarMensaje
             }}
         >{props.children}</authContext.Provider>
     )
