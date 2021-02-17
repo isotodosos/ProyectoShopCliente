@@ -58,9 +58,7 @@ const NuevaCuenta = (props) => {
             mostrarAlerta('Las password no son iguales', 'alerta-error');
             return;
         }
-
-        console.log('funcionando');
-
+        
         //hacemos la query
         registrarUsuario({
             alias,
