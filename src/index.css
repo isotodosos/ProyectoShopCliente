@@ -111,7 +111,7 @@ aside  {
 }
 
 .formulario-nuevo-proyecto {
-  margin-top: 6rem;
+  margin-top: 3rem;
 }
 .formulario-nuevo-proyecto .input-text {
   border-bottom: 1px solid var(--gris2);
@@ -368,11 +368,7 @@ aside  {
 
 
 /*Personal*/
-/*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}*/
+
 .row{
   display:flex;
   flex-wrap: wrap;
@@ -392,3 +388,43 @@ aside  {
 .col-10{width: 83.33%;}
 .col-11{width: 91.66%;}
 .col-12{width: 100%;}
+
+.laterales{
+  padding: 2rem;
+  background-color: var(--blanco);
+}
+.laterales h1{
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 2.5rem;
+  color: var(--gris2);
+}
+.formulario-crear-producto {
+  margin-top: 0;
+}
+.formulario-crear-producto input{
+  margin-top: 1.5rem;
+  background-color: var(--blanco);
+  border-bottom: 1px solid var(--gris2);
+  border-radius: 5px; 
+}
+.formulario-crear-producto input::placeholder{
+  color: var(--gris2);
+}
+.formulario-crear-producto textarea{
+  margin-top: 1.5rem;
+  border-bottom: 1px solid var(--gris2);
+  border-radius: 5px; 
+}
+.formulario-crear-producto textarea::placeholder{
+  color: var(--gris2);  
+}
+.formulario-crear-producto #nuestroinput{
+  padding:0.5rem;
+  color:var(--gris2); 
+  margin-bottom: 1rem;
+  
+}
+.formulario-crear-producto .crearproducto{  
+  width:  100%;
+}

@@ -1,10 +1,12 @@
-import React, {Fragment, useContext, useEffect} from 'react';
+import React, {Fragment, useState, useContext, useEffect} from 'react';
+
 
 import AuthContext from '../../context/auth/authContext';
 
 import Articulos from './Articulos';
 import Articulo from './Articulo';
 import ArticuloNuevo from './ArticuloNuevo';
+import Carrito from './Carrito';
 
 
 
@@ -13,9 +15,13 @@ const Portada = () => {
     const authContext = useContext(AuthContext);
     const { usuario, usuarioAutenticado, cerrarSesion } = authContext;
 
+    const [administrador, handleAdministrador] = useState(false);
+
     useEffect(() => {
         usuarioAutenticado();//mientras haya un token en el LocalStorage puedes acceder
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps 
+              
+                
     },[])
 
     
@@ -35,15 +41,23 @@ const Portada = () => {
                     onClick={() => cerrarSesion()}
                     >Productos</button>
 
+                    { usuario && usuario.email == 'ivan@gmail.com'                
+                    
+                    ?
                     <button
                     className= "btn btn-primario"
                     onClick={() => cerrarSesion()}
                     >Crear Producto</button>
 
+                    :
                     <button
                     className= "btn btn-primario"
                     onClick={() => cerrarSesion()}
                     >Carrito</button>
+
+                    }
+
+                                    
 
                     <button
                         className= "btn btn-secundario cerrar-sesion"
@@ -52,11 +66,13 @@ const Portada = () => {
 
                 </div> 
             </header>
-
             <section className="row">
-                <div className="col-3">Crear Artículo</div>
-                <div className="col-6">Nuestros Productos</div>
-                <div className="col-3">Carrito</div>
+
+                
+                <ArticuloNuevo/>
+                <Carrito/>     
+                <Articulos/>
+                
 
             </section>        
                       
