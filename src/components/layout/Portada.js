@@ -47,30 +47,28 @@ const Portada = () => {
                 {usuario ? <p className="nombre-usuario">Hola <span>{usuario.alias}</span></p> : null} 
                         
                 <div className="nav-botones">
-                    
-                        
+                                            
                     <button
                     className= "btn btn-primario"
                     onClick={() => {clickProductos()}}
                     >Productos</button>
 
-                    { usuario && usuario.email == 'ivan@gmail.com'                
-                    
-                    ?
-                    <button
-                    className= "btn btn-primario"
-                    onClick={() => {mostrarNuevoP()}}
-                    >Crear Producto</button>
+                    { usuario && usuario.email == 'ivan@gmail.com'
 
-                    :
-                    <button
-                    className= "btn btn-primario"
-                    onClick={() => {mostrarCarrito()}}
-                    >Carrito</button>
+                        ?
+                        <button
+                        className= "btn btn-primario"
+                        onClick={() => {mostrarNuevoP()}}
+                        >Crear Producto</button>
+
+                        :
+                        <button
+                        className= "btn btn-primario"
+                        onClick={() => {mostrarCarrito()}}
+                        >Carrito</button>
 
                     }
-
-                                    
+                                  
 
                     <button
                         className= "btn btn-secundario cerrar-sesion"
@@ -79,6 +77,7 @@ const Portada = () => {
 
                 </div> 
             </header>
+            
             <section className="row">
 
                 {lateralnuevop ? <ArticuloNuevo/> : null}
@@ -94,13 +93,6 @@ const Portada = () => {
                     
         </Fragment>
 
-        /*<div>
-            <h1>Soy la Portada</h1>
-            <Articulos/>
-            <Articulo/>
-            <ArticuloNuevo/>
-            
-        </div>*/
         
         
     )
