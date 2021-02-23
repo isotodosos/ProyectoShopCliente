@@ -30,7 +30,7 @@ const ProductoState = (props) => {
         
         try {
             const resultado = await axios.post(`${url.base}/api/producto/crear-producto`, datos)
-            console.log(resultado.data.producto);
+            //console.log(resultado.data.producto);
 
             if(datos.imagen !== '' ){
 
@@ -45,7 +45,7 @@ const ProductoState = (props) => {
                 
                
                 const resultadoFoto = await axios.post(`${url.base}/api/producto/guardar-imagen-producto/${resultado.data.producto._id}`, formData)
-                console.log(resultadoFoto.data.uploadImagenProducto);
+                //console.log(resultadoFoto.data.uploadImagenProducto);
 
                 
 

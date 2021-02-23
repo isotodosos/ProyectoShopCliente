@@ -69,15 +69,12 @@ const ArticuloNuevo = () => {
          imagen
       })
 
-      handleNuevoProducto({
-         nombre : '',
-         precio : '',
-         stock : '',
-         descripcion : '',
-         imagen : ''
-      })
+      setTimeout(() => {
 
-      ocultarNuevoP()
+         ocultarNuevoP() // con el settimeout le damos tiempo a mostrarse la alerta
+    
+      }, 1000);
+      
 
       
    }
