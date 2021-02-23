@@ -10,7 +10,7 @@ const ArticuloNuevo = () => {
    const { alerta, mostrarAlerta } = alertaContext;
 
    const lateralContext = useContext(LateralContext);
-    const { ocultarNuevoP } = lateralContext;
+   const { ocultarNuevoP } = lateralContext;
 
    const productoContext = useContext(ProductoContext);
    const { mensaje, agregarProducto } = productoContext;

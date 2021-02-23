@@ -5,6 +5,7 @@ import productoReducer from './productoReducer';
 
 import {AGREGAR_PRODUCTO_EXITO,
     AGREGAR_PRODUCTO_ERROR,
+    OBTENER_PRODUCTOS,
     LIMPIAR_MENSAJE} from '../../types';
 
 import axios from 'axios';
@@ -15,8 +16,7 @@ const ProductoState = (props) => {
 
     const inicialState = {
         productos : [],
-        productoSeleccionado:{},
-        fileProducto : null,
+        productoSeleccionado:{},        
         mensaje : null,
     }
 
@@ -32,7 +32,7 @@ const ProductoState = (props) => {
             const resultado = await axios.post(`${url.base}/api/producto/crear-producto`, datos)
             //console.log(resultado.data.producto);
 
-            if(datos.imagen !== '' ){
+            if(datos.imagen !== '' ){ 
 
                 
                 //crear form data y añadir fichero
@@ -55,9 +55,8 @@ const ProductoState = (props) => {
                 })
 
                 return; //tengo que poner un return para que no siga al siguiente dispatch
-
-                                        
-                          
+                                     
+                         
                 
             }
 
@@ -85,6 +84,28 @@ const ProductoState = (props) => {
         }
     }
 
+
+    //obtener productos
+    const obtenerProductos = async () => {
+
+        try {
+
+            const respuesta = await axios.get(`${url.base}/api/producto/catalogo`)
+            console.log(respuesta.data.productos);
+
+            dispatch({
+                type : OBTENER_PRODUCTOS,
+                payload : respuesta.data.productos
+            })
+            
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
+
+
     //limpiar mensaje
     const limpiarMensaje = () => {
         setTimeout(() => {
@@ -98,10 +119,10 @@ const ProductoState = (props) => {
         <productoContext.Provider
             value = {{
                 productos : state.productos,
-                productoSeleccionado : state.productoSeleccionado,
-                fileProducto : state.fileProducto,
+                productoSeleccionado : state.productoSeleccionado,                
                 mensaje : state.mensaje,
                 agregarProducto,
+                obtenerProductos,
                 limpiarMensaje
             }}
         >{props.children}</productoContext.Provider>
