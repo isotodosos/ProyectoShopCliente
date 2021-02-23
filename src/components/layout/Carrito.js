@@ -4,7 +4,7 @@ const Carrito = () => {
 
     return(
 
-        <div className="col-4 laterales">
+        <div className="col-6 laterales">
             <h1>Tu Carrito</h1>
             <div className="lista-carrito">
                 

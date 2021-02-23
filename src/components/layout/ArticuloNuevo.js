@@ -1,6 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+
+import ProductoContext from '../../context/producto/productoContext';
+import AlertaContext from '../../context/alerta/alertaContext';
+import LateralContext from '../../context/lateral/lateralContext';
 
 const ArticuloNuevo = () => {
+
+   const alertaContext = useContext(AlertaContext);
+   const { alerta, mostrarAlerta } = alertaContext;
+
+   const lateralContext = useContext(LateralContext);
+    const { ocultarNuevoP } = lateralContext;
+
+   const productoContext = useContext(ProductoContext);
+   const { mensaje, agregarProducto } = productoContext;
+
+   useEffect(() => {   
+
+      if(mensaje){
+         mostrarAlerta(mensaje.msg, mensaje.categoria);
+      }
+
+   }, [ mensaje])
 
    const [nuevoproducto, handleNuevoProducto] = useState({
       nombre : '',
@@ -13,23 +34,63 @@ const ArticuloNuevo = () => {
    const { nombre, precio, stock, descripcion, imagen } = nuevoproducto;
 
    const onChange = (e) => {
+      
       handleNuevoProducto({
          ...nuevoproducto,
-         [e.target.name] : e.target.value
+         [e.target.name] : e.target.value  
       });
    }
 
+   const onChangeFile = (e) => {
+      //console.log(e.target.files[0]);
+      handleNuevoProducto({
+         ...nuevoproducto,
+         [e.target.name] : e.target.files[0] 
+      });
+   }
+   
+   
+   
    const onSubmit = e => {
       e.preventDefault();
+
       // validamos todos los campos
+      if(nombre.trim() == "" || precio.trim() == "" || stock.trim() == "" || descripcion.trim() == "" ){
+         mostrarAlerta('Hay que rellenar todos los campos', 'alerta-error');
+         return;
+      }
+      
       //realizamos las acciones para consultar y modificaciones del state
+      agregarProducto({
+         nombre, 
+         precio,
+         stock,
+         descripcion,
+         imagen
+      })
+
+      handleNuevoProducto({
+         nombre : '',
+         precio : '',
+         stock : '',
+         descripcion : '',
+         imagen : ''
+      })
+
+      ocultarNuevoP()
+
+      
    }
 
    return(
       
-         <div className="col-4 laterales">
+         <div className="col-6 laterales">
+
+            {alerta ? (<div className = {`alerta ${alerta.categoria}`}>{alerta.msg}</div>) : null}  
+
             <h1>Nuevo Producto</h1>
             <form
+             encType="multipart/form-data"
              className="formulario-crear-producto"
              onSubmit={e => onSubmit(e)}>
                <input
@@ -65,12 +126,11 @@ const ArticuloNuevo = () => {
                />                        
                <input
                   type="file"
-                  name="imagen"
-                  //placeholder="imagen"
-                  //className="input-text archivador"
+                  name="imagen"                  
+                  className="input-text archivador"
                   id="nuestroinput"
-                  value={imagen}
-                  onChange={e => onChange(e)}
+                  //value={imagen}
+                  onChange={e => onChangeFile(e)}
                />
                <button
                   type="submit"

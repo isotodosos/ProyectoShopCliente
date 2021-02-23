@@ -10,6 +10,7 @@ import Portada from './components/layout/Portada';
 import AlertaState from './context/alerta/alertaState';
 import AuthState from './context/auth/authState';
 import LateralState from './context/lateral/lateralState';
+import ProductoState from './context/producto/productoState';
 
 import RutaPrivada from './components/ruta/RutaPrivada';// este higher order components le pasa las props al componente Proyectos si autenticado es true
 
@@ -20,7 +21,8 @@ function App() {
   return (
     <AlertaState>
       <AuthState>
-        <LateralState>          
+        <LateralState>
+          <ProductoState>          
             <Router>
               <Switch>
                 
@@ -30,7 +32,8 @@ function App() {
                 
                 
               </Switch>
-            </Router>          
+            </Router>  
+          </ProductoState>        
         </LateralState>
       </AuthState>
     </AlertaState>
