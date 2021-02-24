@@ -104,6 +104,20 @@ const ProductoState = (props) => {
     }
 
 
+    //obtener imagen
+    const obtenerImagen = async (imagen) => {
+
+        try {
+
+            const respuesta = await axios.get(`${url.base}/api/producto/get-imagen/${imagen}`);
+            console.log(respuesta.data);
+            
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
 
 
     //limpiar mensaje
@@ -123,6 +137,7 @@ const ProductoState = (props) => {
                 mensaje : state.mensaje,
                 agregarProducto,
                 obtenerProductos,
+                obtenerImagen,
                 limpiarMensaje
             }}
         >{props.children}</productoContext.Provider>

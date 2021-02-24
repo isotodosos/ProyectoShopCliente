@@ -81,7 +81,7 @@ const ArticuloNuevo = () => {
 
    return(
       
-         <div className="col-6 laterales">
+         <div className="col-4 laterales">
 
             {alerta ? (<div className = {`alerta ${alerta.categoria}`}>{alerta.msg}</div>) : null}  
 
