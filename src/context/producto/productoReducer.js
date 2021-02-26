@@ -1,6 +1,7 @@
 import {AGREGAR_PRODUCTO_EXITO,
     AGREGAR_PRODUCTO_ERROR,
     OBTENER_PRODUCTOS,
+    OBTENER_IMAGENES,
     LIMPIAR_MENSAJE} from '../../types';
 
 export default (state, action) => {
@@ -19,6 +20,14 @@ export default (state, action) => {
                     ...state.productos,
                     action.payload//el objeto action.payload se inserta dentro del arreglo de objetos state.proyectos
                 ]
+            })
+        case OBTENER_IMAGENES:
+            return({
+                ...state,
+                imagenesproducto : [
+                    ...state.imagenesproducto,
+                    action.payload
+                ] 
             })
         case AGREGAR_PRODUCTO_ERROR:
             return({

@@ -2,16 +2,18 @@ import React, {useContext, useEffect} from 'react';
 
 import ProductoContext from '../../context/producto/productoContext';
 
-const Articulo = ({producto}) => {
+const Articulo = ({producto, posicion}) => {
 
     const productoContext = useContext(ProductoContext);
-    const { obtenerImagen } = productoContext;
+    const { imagenesproducto, obtenerImagenes } = productoContext;
     
     const {_id, nombre, precio, stock, descripcion, imagen} = producto;
 
     useEffect(() => {
-        obtenerImagen()
-    },[])
+        
+        obtenerImagenes(imagen)
+        
+    },[ imagen])
 
     const editar = id => {
         console.log(`editar el id ${id}`)
@@ -20,21 +22,28 @@ const Articulo = ({producto}) => {
     const borrar = id => {
         console.log(`borrar el id ${id}`)
     }
+
     
-
-
+        
 
     return(
-        <div className="listado-tareas col-6 row">
+        
+            
+
+        <div className="listado-tareas  row">
 
             <div>
-                <img src={obtenerImagen(imagen)}/> 
+                
+                <img src={imagenesproducto[posicion]} alt={nombre} className="img-producto"/>
+                
+                 
             </div>
             
             
             <div>
-                <h4>{`${nombre} ................... ${precio} €`}</h4>
-                <p>{descripcion}</p>                
+                <h4>{`${nombre} ..... ${precio} €`}</h4>
+                <p>{descripcion}</p> 
+                {stock < 4 ? <p className="stock"> ¡¡ Solo quedan {stock}!! </p> : null}               
             </div>
             
             <div>
@@ -48,6 +57,10 @@ const Articulo = ({producto}) => {
                 >Borrar</button>
             </div>
         </div>
+
+          
+        
+        
     )
 }
 

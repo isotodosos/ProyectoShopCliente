@@ -6,6 +6,7 @@ import productoReducer from './productoReducer';
 import {AGREGAR_PRODUCTO_EXITO,
     AGREGAR_PRODUCTO_ERROR,
     OBTENER_PRODUCTOS,
+    OBTENER_IMAGENES,
     LIMPIAR_MENSAJE} from '../../types';
 
 import axios from 'axios';
@@ -16,6 +17,7 @@ const ProductoState = (props) => {
 
     const inicialState = {
         productos : [],
+        imagenesproducto : [],
         productoSeleccionado:{},        
         mensaje : null,
     }
@@ -29,6 +31,7 @@ const ProductoState = (props) => {
         //console.log(datos.imagen)
         
         try {
+            
             const resultado = await axios.post(`${url.base}/api/producto/crear-producto`, datos)
             //console.log(resultado.data.producto);
 
@@ -105,12 +108,17 @@ const ProductoState = (props) => {
 
 
     //obtener imagen
-    const obtenerImagen = async (imagen) => {
+    const obtenerImagenes = async (imagen) => {
 
         try {
 
             const respuesta = await axios.get(`${url.base}/api/producto/get-imagen/${imagen}`);
-            console.log(respuesta.data);
+            console.log(respuesta.config.url);
+
+            dispatch({
+                type : OBTENER_IMAGENES,
+                payload : respuesta.config.url
+            })
             
         } catch (error) {
             console.log(error);
@@ -133,11 +141,12 @@ const ProductoState = (props) => {
         <productoContext.Provider
             value = {{
                 productos : state.productos,
+                imagenesproducto : state.imagenesproducto,
                 productoSeleccionado : state.productoSeleccionado,                
                 mensaje : state.mensaje,
                 agregarProducto,
                 obtenerProductos,
-                obtenerImagen,
+                obtenerImagenes,
                 limpiarMensaje
             }}
         >{props.children}</productoContext.Provider>

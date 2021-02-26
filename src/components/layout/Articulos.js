@@ -8,7 +8,7 @@ import ProductoContext from '../../context/producto/productoContext';
 const Articulos = () => {
 
     const productoContext = useContext(ProductoContext);
-    const { productos, obtenerProductos } = productoContext;
+    const { productos, obtenerProductos, } = productoContext;
 
     const lateralContext = useContext(LateralContext);
     const { lateralnuevop, lateralcarrito } = lateralContext;
@@ -16,9 +16,13 @@ const Articulos = () => {
     useEffect(() => {
         
         
-        obtenerProductos()       
+        obtenerProductos() 
+       
+            
 
     }, [])
+
+
  
     if(productos.length === 0){ return(<p>No hay productos en el catálogo</p>)}
     return(
@@ -27,12 +31,17 @@ const Articulos = () => {
             <div className="row">
                 <h2 className ="titulo">Catálogo</h2>
                 <div className ="col-12 row">
-                    { 
-                    productos.map( (producto, i) => {
+                    {                     
+
+                    productos.map( (producto,i) => {
+                        
+
                         return(
                             <Articulo
                                 key = {producto._id}
                                 producto = {producto}
+                                posicion = {i}
+                                
                             />
                         )
                         
