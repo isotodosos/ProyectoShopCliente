@@ -1,8 +1,12 @@
 import React, {useContext, useEffect} from 'react';
 
+import AuthContext from '../../context/auth/authContext';
 import ProductoContext from '../../context/producto/productoContext';
 
-const Articulo = ({producto, posicion}) => {
+const Articulo = ({producto}) => {
+
+    const authContext = useContext(AuthContext);
+    const { usuario} = authContext;
 
     const productoContext = useContext(ProductoContext);
     const { imagenesproducto, obtenerImagenes } = productoContext;
@@ -24,7 +28,18 @@ const Articulo = ({producto, posicion}) => {
     }
 
     
-        
+    const serlock = (imagenesproducto, imagen) => {
+        const indice = imagenesproducto.findIndex(eachImagenProducto => eachImagenProducto.includes(imagen))
+        //console.log(indice);
+        if(indice > -1){
+            return imagenesproducto[indice]
+        }
+        else{
+            return '"http://localhost:4000/api/producto/get-imagen/Falta_imagen.jpg"'
+        }
+    }   
+
+
 
     return(
         
@@ -34,7 +49,7 @@ const Articulo = ({producto, posicion}) => {
 
             <div>
                 
-                <img src={imagenesproducto[posicion]} alt={nombre} className="img-producto"/>
+                <img src={serlock(imagenesproducto, imagen)}  alt={nombre} className="img-producto"/>
                 
                  
             </div>
@@ -46,16 +61,29 @@ const Articulo = ({producto, posicion}) => {
                 {stock < 4 ? <p className="stock"> ¡¡ Solo quedan {stock}!! </p> : null}               
             </div>
             
-            <div>
-                <button
-                    className= "btn btn-primario"
-                    onClick={() => {editar(_id)}}
-                >Editar</button>
-                <button
-                    className= "btn btn-primario"
-                    onClick={() => {borrar(_id)}}
-                >Borrar</button>
-            </div>
+
+            { 
+                usuario && usuario.email == 'ivan@gmail.com'
+
+            ?
+                <div>
+                
+                    <button
+                        className= "btn btn-primario"
+                        onClick={() => {editar(_id)}}
+                    >Editar</button>
+                    <button
+                        className= "btn btn-primario"
+                        onClick={() => {borrar(_id)}}
+                    >Borrar</button>
+
+                </div>
+
+            :
+                null
+
+            }
+            
         </div>
 
           

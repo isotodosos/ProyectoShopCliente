@@ -34,13 +34,17 @@ const Articulos = () => {
                     {                     
 
                     productos.map( (producto,i) => {
+
+                        if(producto.imagen == null){
+                            producto.imagen = 'Falta_imagen.jpg'
+                        }
                         
 
                         return(
                             <Articulo
                                 key = {producto._id}
                                 producto = {producto}
-                                posicion = {i}
+                                
                                 
                             />
                         )

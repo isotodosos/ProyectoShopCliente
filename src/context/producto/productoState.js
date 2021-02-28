@@ -30,6 +30,7 @@ const ProductoState = (props) => {
 
         //console.log(datos.imagen)
         
+        
         try {
             
             const resultado = await axios.post(`${url.base}/api/producto/crear-producto`, datos)
@@ -94,7 +95,7 @@ const ProductoState = (props) => {
         try {
 
             const respuesta = await axios.get(`${url.base}/api/producto/catalogo`)
-            console.log(respuesta.data.productos);
+            //console.log(respuesta.data.productos);
 
             dispatch({
                 type : OBTENER_PRODUCTOS,
@@ -113,7 +114,7 @@ const ProductoState = (props) => {
         try {
 
             const respuesta = await axios.get(`${url.base}/api/producto/get-imagen/${imagen}`);
-            console.log(respuesta.config.url);
+            //console.log(respuesta.config.url);
 
             dispatch({
                 type : OBTENER_IMAGENES,
