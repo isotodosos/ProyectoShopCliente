@@ -2,6 +2,7 @@ import {AGREGAR_PRODUCTO_EXITO,
     AGREGAR_PRODUCTO_ERROR,
     OBTENER_PRODUCTOS,
     OBTENER_IMAGENES,
+    OBTENER_PRODUCTO,
     LIMPIAR_MENSAJE} from '../../types';
 
 export default (state, action) => {
@@ -33,6 +34,11 @@ export default (state, action) => {
             return({
                 ...state,
                 mensaje : action.payload
+            })
+        case OBTENER_PRODUCTO:
+            return({
+                ...state,
+                producto : action.payload
             })
         case LIMPIAR_MENSAJE:
             return({

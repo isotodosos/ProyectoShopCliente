@@ -13,17 +13,36 @@ const ArticuloNuevo = () => {
    const { ocultarNuevoP } = lateralContext;
 
    const productoContext = useContext(ProductoContext);
-   const { mensaje, agregarProducto } = productoContext;
+   const { producto, mensaje, agregarProducto, actualizarProducto } = productoContext;
 
-   useEffect(() => {   
+   useEffect(() => {  
 
       if(mensaje){
          mostrarAlerta(mensaje.msg, mensaje.categoria);
       }
+      
+      if(producto !== null ){
+         
+         handleNuevoProducto(producto)
+         
+         
+      }
+      if(producto === null){
+         handleNuevoProducto({
+            nombre : '',
+            precio : '',
+            stock : '',
+            descripcion : '',
+            imagen : ''
+         })
+     }
 
-   }, [ mensaje])
+     
+
+   }, [ mensaje, producto])
 
    const [nuevoproducto, handleNuevoProducto] = useState({
+     
       nombre : '',
       precio : '',
       stock : '',
@@ -53,27 +72,66 @@ const ArticuloNuevo = () => {
    
    const onSubmit = e => {
       e.preventDefault();
+      console.log(nuevoproducto)
+     
+      
+      // revisamos si es edicion o es creacion de un producto
+      if (producto !== null){
 
-      // validamos todos los campos
-      if(nombre.trim() == "" || precio.trim() == "" || stock.trim() == "" || descripcion.trim() == "" ){
+         // Pendiente de arreglar... validamos lo que podemos .trim() no funciona con numeros
+         if(nombre.trim() == "" || descripcion.trim() == "" ){
          mostrarAlerta('Hay que rellenar todos los campos', 'alerta-error');
          return;
+         }
+                  
+         //realizamos las acciones para consultar y modificaciones del state
+         actualizarProducto(nuevoproducto)
+
+         setTimeout(() => {
+
+            ocultarNuevoP() // con el settimeout le damos tiempo a mostrarse la alerta
+       
+         }, 1000);
+
+         handleNuevoProducto({
+            nombre : '',
+            precio : '',
+            stock : '',
+            descripcion : '',
+            imagen : ''
+         })
+         
+         return;
+         
       }
+
+
       
+      // validamos todos los campos
+      if(nombre.trim() == "" || precio.trim() == "" || stock.trim() == "" || descripcion.trim() == "" ){
+      mostrarAlerta('Hay que rellenar todos los campos', 'alerta-error');
+      return;
+      }
+         
       //realizamos las acciones para consultar y modificaciones del state
-      agregarProducto({
-         nombre, 
-         precio,
-         stock,
-         descripcion,
-         imagen
-      })
+      agregarProducto(nuevoproducto)
 
       setTimeout(() => {
 
          ocultarNuevoP() // con el settimeout le damos tiempo a mostrarse la alerta
     
       }, 1000);
+
+
+      handleNuevoProducto({
+         nombre : '',
+         precio : '',
+         stock : '',
+         descripcion : '',
+         imagen : ''
+      })
+      
+      
       
 
       
@@ -131,8 +189,8 @@ const ArticuloNuevo = () => {
                />
                <button
                   type="submit"
-                  className="btn btn-primario crearproducto"
-               >Crear</button>
+                  className="btn btn-primario crearproducto"                   
+               >{producto ? 'Editar Producto' : 'Crear Producto'}</button>
             </form>
          </div>
    )

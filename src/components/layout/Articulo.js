@@ -2,6 +2,7 @@ import React, {useContext, useEffect} from 'react';
 
 import AuthContext from '../../context/auth/authContext';
 import ProductoContext from '../../context/producto/productoContext';
+import LateralContext from '../../context/lateral/lateralContext';
 
 const Articulo = ({producto}) => {
 
@@ -9,7 +10,10 @@ const Articulo = ({producto}) => {
     const { usuario} = authContext;
 
     const productoContext = useContext(ProductoContext);
-    const { imagenesproducto, obtenerImagenes } = productoContext;
+    const { imagenesproducto, obtenerImagenes, obtenerProducto } = productoContext;
+
+    const lateralContext = useContext(LateralContext);
+    const { mostrarNuevoP } = lateralContext;
     
     const {_id, nombre, precio, stock, descripcion, imagen} = producto;
 
@@ -20,7 +24,10 @@ const Articulo = ({producto}) => {
     },[ imagen])
 
     const editar = id => {
-        console.log(`editar el id ${id}`)
+        mostrarNuevoP()
+        obtenerProducto(id)
+
+        //console.log(`editar el id ${id}`)
     }
 
     const borrar = id => {
