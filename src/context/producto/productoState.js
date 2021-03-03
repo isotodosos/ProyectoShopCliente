@@ -8,6 +8,8 @@ import {AGREGAR_PRODUCTO_EXITO,
     OBTENER_PRODUCTOS,
     OBTENER_IMAGENES,
     OBTENER_PRODUCTO,
+    ACTUALIZAR_PRODUCTO,
+    BORRAR_PRODUCTO,
     LIMPIAR_MENSAJE} from '../../types';
 
 import axios from 'axios';
@@ -30,16 +32,13 @@ const ProductoState = (props) => {
 
     const agregarProducto = async datos => {
 
-        //console.log(datos.imagen)
-        
-        
+               
         try {
             
             const resultado = await axios.post(`${url.base}/api/producto/crear-producto`, datos)
             //console.log(resultado.data.producto);
 
             if(datos.imagen !== '' ){ 
-
                 
                 //crear form data y añadir fichero
                 let formData = new FormData();//creamos un formulario y le adjuntamos el archivo
@@ -47,33 +46,28 @@ const ProductoState = (props) => {
                     'imagen',//el nombre del fichero que vinculamos
                     datos.imagen, //el fichero que envio
                     datos.imagen.name //con que nombre se envia 
-                );
-                
+                );                
                
                 const resultadoFoto = await axios.post(`${url.base}/api/producto/guardar-imagen-producto/${resultado.data.producto._id}`, formData)
                 //console.log(resultadoFoto.data.uploadImagenProducto);
 
                 
-
                 dispatch({
                     type : AGREGAR_PRODUCTO_EXITO,
                     payload : resultadoFoto.data.uploadImagenProducto
                 })
 
-                return; //tengo que poner un return para que no siga al siguiente dispatch
-                                     
-                         
+                return; //tengo que poner un return para que no siga al siguiente dispatch                                   
+                        
                 
             }
 
             dispatch({
                 type : AGREGAR_PRODUCTO_EXITO,
                 payload : resultado.data.producto
-            })
-            
+            })          
 
-            
-            
+                        
         } catch (error) {
             
             const alerta = {
@@ -143,15 +137,14 @@ const ProductoState = (props) => {
         }
     }
 
+    //editar productos 
     const actualizarProducto = async (datos) => {
-        console.log(datos);
+        
         try {
             
             if( datos.imagen !== null && typeof(datos.imagen) !== 'string'){ 
             
- 
-
-                
+                 
                 //crear form data y añadir fichero
                 let formData = new FormData();//creamos un formulario y le adjuntamos el archivo
                 formData.append(//con append le vinculamos un fichero
@@ -167,9 +160,15 @@ const ProductoState = (props) => {
 
                 datos.imagen = resultadoFoto.data.uploadImagenProducto.imagen;
 
-                //este trozo es el repetido independientemente de la foto
+                //este trozo es el repetido independientemente de la imagen 
                 const respuesta = await axios.put(`${url.base}/api/producto/actualizar/${datos._id}`, datos)
                 console.log(respuesta.data.producto)
+
+                dispatch({
+                    type : ACTUALIZAR_PRODUCTO,
+                    payload : respuesta.data.producto
+                })
+
                 return;
                 
             }
@@ -178,21 +177,60 @@ const ProductoState = (props) => {
             if(datos.imagen === null){
                 datos.imagen = 'Falta_imagen.jpg';
             }
-            //este trozo es el repetido independientemente de la foto
+
+            //este trozo es el repetido independientemente de la imagen
             const respuesta = await axios.put(`${url.base}/api/producto/actualizar/${datos._id}`, datos)
             console.log(respuesta.data.producto)
 
-          
+            dispatch({
+                type : ACTUALIZAR_PRODUCTO,
+                payload : respuesta.data.producto
+            }) 
             
 
-
-            //dispatch
+            
         } catch (error) {
-            console.log(error)
+            const alerta = {
+                msg : 'No se ha podido actualizar el producto',
+                categoria : 'alerta-error'
+            }
+
+            dispatch({
+                type : AGREGAR_PRODUCTO_ERROR,
+                payload : alerta 
+            })
+
+            limpiarMensaje()
         }
     }
 
 
+    //borrar producto
+    const borrarProducto = async (id) => {
+
+        try {
+            
+            await axios.delete(`${url.base}/api/producto/borrar/${id}`);
+
+            dispatch({
+                type : BORRAR_PRODUCTO,
+                payload : id
+            })
+
+        } catch (error) {
+            const alerta = {
+                msg : 'No se ha podido borrar el producto',
+                categoria : 'alerta-error'
+            }
+
+            dispatch({
+                type : AGREGAR_PRODUCTO_ERROR,
+                payload : alerta 
+            })
+
+            limpiarMensaje()
+        }
+    }
 
 
     //limpiar mensaje
@@ -217,6 +255,7 @@ const ProductoState = (props) => {
                 obtenerImagenes,
                 obtenerProducto,
                 actualizarProducto,
+                borrarProducto,
                 limpiarMensaje
             }}
         >{props.children}</productoContext.Provider>
