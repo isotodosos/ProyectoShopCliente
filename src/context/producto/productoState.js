@@ -20,15 +20,15 @@ const ProductoState = (props) => {
 
     const inicialState = {
         productos : [],
-        imagenesproducto : [],
-        producto: null, 
-        productoparacarrito: null,       
+        imagenesproducto : [],        
+        producto: null,               
         mensaje : null,
+        
     }
 
     const [state, dispatch] = useReducer ( productoReducer, inicialState);
 
-    //funciones
+    //funciones 
 
     const agregarProducto = async datos => {
 
@@ -242,14 +242,16 @@ const ProductoState = (props) => {
         }, 1000);
     }
 
+
+   
+
     return(
         <productoContext.Provider
             value = {{
                 productos : state.productos,
                 imagenesproducto : state.imagenesproducto,
-                producto : state.producto, 
-                productoparacarrito : state.productoparacarrito,               
-                mensaje : state.mensaje,
+                producto : state.producto,                                
+                mensaje : state.mensaje,                
                 agregarProducto,
                 obtenerProductos,
                 obtenerImagenes,

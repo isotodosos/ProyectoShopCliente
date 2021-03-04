@@ -3,6 +3,7 @@ import React, {useContext, useEffect} from 'react';
 import AuthContext from '../../context/auth/authContext';
 import ProductoContext from '../../context/producto/productoContext';
 import LateralContext from '../../context/lateral/lateralContext';
+import CarritoContext from '../../context/carrito/carritoContext';
 
 import Caja from '../../config/caja';
 
@@ -17,7 +18,10 @@ const Articulo = ({producto}) => {
     const { imagenesproducto, obtenerImagenes, obtenerProducto, borrarProducto } = productoContext;
 
     const lateralContext = useContext(LateralContext);
-    const { mostrarNuevoP } = lateralContext;
+    const { mostrarNuevoP, mostrarCarrito } = lateralContext;
+
+    const carritoContext = useContext(CarritoContext);
+    const { sumarproducto } = carritoContext;
     
     const {_id, nombre, precio, stock, descripcion, imagen} = producto;
 
@@ -31,7 +35,7 @@ const Articulo = ({producto}) => {
         mostrarNuevoP()
         obtenerProducto(id)
 
-        //console.log(`editar el id ${id}`)
+        
     }
 
     const borrar = id => {
@@ -67,7 +71,13 @@ const Articulo = ({producto}) => {
         else{
             return Caja.falta_imagen;
         }
-    }   
+    }  
+    
+    const seleccionar = id => {
+        
+        mostrarCarrito()
+        sumarproducto(id)
+    }
 
 
 
@@ -110,7 +120,15 @@ const Articulo = ({producto}) => {
                 </div>
 
             :
-                null
+                <div>                
+            
+                    <button
+                        className= "btn btn-primario"
+                        onClick={() => {seleccionar(_id)}}
+                    >Seleccionar</button>
+
+                </div>
+
 
             }
             
