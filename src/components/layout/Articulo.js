@@ -4,6 +4,8 @@ import AuthContext from '../../context/auth/authContext';
 import ProductoContext from '../../context/producto/productoContext';
 import LateralContext from '../../context/lateral/lateralContext';
 
+import Caja from '../../config/caja';
+
 import swal from 'sweetalert';
 
 const Articulo = ({producto}) => {
@@ -63,7 +65,7 @@ const Articulo = ({producto}) => {
             return imagenesproducto[indice]
         }
         else{
-            return '"http://localhost:4000/api/producto/get-imagen/Falta_imagen.jpg"'
+            return Caja.falta_imagen;
         }
     }   
 
@@ -91,7 +93,7 @@ const Articulo = ({producto}) => {
             
 
             { 
-                usuario && usuario.email == 'ivan@gmail.com'
+                usuario && usuario.email == Caja.administrador
 
             ?
                 <div>

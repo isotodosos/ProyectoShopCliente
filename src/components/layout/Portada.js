@@ -7,6 +7,7 @@ import LateralContext from '../../context/lateral/lateralContext';
 import Articulos from './Articulos';
 import ArticuloNuevo from './ArticuloNuevo';
 import Carrito from './Carrito';
+import Caja from '../../config/caja';
 
 
 
@@ -52,7 +53,7 @@ const Portada = () => {
                     onClick={() => {clickProductos()}}
                     >Productos</button>
 
-                    { usuario && usuario.email == 'ivan@gmail.com'
+                    { usuario && usuario.email == Caja.administrador
 
                         ?
                         <button
