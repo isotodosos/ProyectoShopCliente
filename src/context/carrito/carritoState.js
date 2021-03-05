@@ -3,8 +3,8 @@ import React, {useReducer} from 'react';
 import carritoContext from './carritoContext';
 import carritoReducer from './carritoReducer';
 
-import {SUMAR_PRODUCTO_CARRITO,
-    PONER_PRODUCTO_SELECCIONADO} from '../../types';
+import {PONER_PRODUCTO_SELECCIONADO,
+    QUITAR_PRODUCTO_SELECCIONADO} from '../../types';
 
 import axios from 'axios';
 import url from '../../config/url';

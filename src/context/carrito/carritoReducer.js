@@ -1,5 +1,5 @@
-import {SUMAR_PRODUCTO_CARRITO,
-    PONER_PRODUCTO_SELECCIONADO} from '../../types';
+import {PONER_PRODUCTO_SELECCIONADO,
+    QUITAR_PRODUCTO_SELECCIONADO} from '../../types';
 
 export default (state, action) => {
 

@@ -452,6 +452,15 @@ aside  {
 .stock{
   color:rgb(248, 29, 29);
 }
+.lista-carrito{
+  padding: 1rem;
+  
+}
+.elemento-lista-carrito{
+  padding: 1rem;
+  border: solid 1px var(--gris2);
+  color: var(--gris3);
+}
 
 
 
