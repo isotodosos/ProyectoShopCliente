@@ -3,6 +3,7 @@ import React, {Fragment, useContext, useEffect} from 'react';
 
 import AuthContext from '../../context/auth/authContext';
 import LateralContext from '../../context/lateral/lateralContext';
+import CarritoContext from '../../context/carrito/carritoContext';
 
 import Articulos from './Articulos';
 import ArticuloNuevo from './ArticuloNuevo';
@@ -19,6 +20,8 @@ const Portada = () => {
     const lateralContext = useContext(LateralContext);
     const { lateralnuevop, lateralcarrito, mostrarNuevoP, mostrarCarrito, ocultarNuevoP, ocultarCarrito } = lateralContext;
 
+    const carritoContext = useContext(CarritoContext);
+    const { carrito, total, mensajecompra } = carritoContext;
     
     useEffect(() => {
         usuarioAutenticado();//mientras haya un token en el LocalStorage puedes acceder
@@ -82,7 +85,17 @@ const Portada = () => {
 
                 {lateralnuevop ? <ArticuloNuevo/> : null}
                                     
+                {mensajecompra
+                ?
+                <div className='mensaje-compra col-12'>
+                    <h1>¡Enhorabuena!, tu compra se ha realizado con éxito</h1>
+                    <h2>El importe de tu compra por valor de {`${total}`} € se ha cargado a tu tarjeta</h2>
+                    <h2>Tu pedido llegará a tu dirección en 24 - 48 h</h2>
+                    <h1>Gracias</h1>
+                </div> 
+                : 
                 <Articulos/>
+                }
 
                 {lateralcarrito ? <Carrito/> : null}
                                 

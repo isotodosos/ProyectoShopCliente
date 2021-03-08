@@ -453,13 +453,34 @@ aside  {
   color:rgb(248, 29, 29);
 }
 .lista-carrito{
-  padding: 1rem;
+  padding: 0.5rem;
   
 }
 .elemento-lista-carrito{
   padding: 1rem;
-  border: solid 1px var(--gris2);
+  background-color: var(--gris1);  
   color: var(--gris3);
+}
+.elemento-lista-carrito h3{  
+  color: #03394e;
+}
+.parte-total h2{
+  margin-top: 3rem;
+  color : #03394e;
+}
+.parte-total button{
+  margin-left: 70%;
+}
+.mensaje-compra{
+  text-align: center;
+  margin-top: 4rem;  
+}
+.mensaje-compra :nth-child(1){
+  color :#03394e;
+}
+
+.mensaje-compra :nth-child(4){
+  color :rgb(190, 158, 13);
 }
 
 

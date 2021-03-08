@@ -21,7 +21,7 @@ const Articulo = ({producto}) => {
     const { mostrarNuevoP, mostrarCarrito } = lateralContext;
 
     const carritoContext = useContext(CarritoContext);
-    const { sumarproducto } = carritoContext;
+    const { sumarProductoALista } = carritoContext;
     
     const {_id, nombre, precio, stock, descripcion, imagen} = producto;
 
@@ -76,7 +76,7 @@ const Articulo = ({producto}) => {
     const seleccionar = id => {
         
         mostrarCarrito()
-        sumarproducto(id)
+        sumarProductoALista(id)
     }
 
 
